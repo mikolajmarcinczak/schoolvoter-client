@@ -1,4 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import AddUniversity from "@/components/AddUniversity.vue";
 
-createApp(App).mount('#app')
+const app = createApp(App);
+
+app.mount('#app');
+app.component('add-university', AddUniversity);
