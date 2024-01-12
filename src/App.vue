@@ -15,9 +15,7 @@ export default {
 </script>
 
 <style>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
