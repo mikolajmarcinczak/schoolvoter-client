@@ -7,9 +7,11 @@
 
 			<label for="score" class="font-bold">University Score:</label>
 			<div class="flex">
-				<div v-for="star in 10" :key="star" class="cursor-pointer" @click="setScore(star)">
-					<i :class="star <= university.score ? 'fas fa-star text-gold' : 'far fa-star text-gold'"></i>
+
+				<div v-for="star in Array.from({length: 10}, (_, i) => (i + 1) / 2)" :key="star" class="cursor-pointer" @click.left="setScore(star)" @click.right.prevent="setScore(star - 0.5)">
+					<i :class="star <= university.score ? 'fas fa-star text-gold' : star - 0.5 < university.score ? 'fas fa-star-half-alt text-gold' : 'far fa-star text-gray-300'"></i>
 				</div>
+
 			</div>
 
 			<button type="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-3 px-2 rounded-b-md">Add University</button>
@@ -52,6 +54,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import url("../assets/stars/stars.css");
+
 h3 {
   margin: 40px 0 0;
 }
