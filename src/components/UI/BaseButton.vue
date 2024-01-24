@@ -20,12 +20,25 @@ button {
 	color: white;
 	cursor: pointer;
 	max-width: 40em;
+	border-radius: 1em;
+	margin-left: 2em;
 }
 
 button:hover,
 button:active {
 	background-color: #002941;
 	border-color: #002539;
+}
+
+.dangerBtn {
+	background-color: #881100;
+	border-color: #881100;
+}
+
+.dangerBtn:hover,
+.dangerBtn:active {
+	background-color: #882222;
+	border-radius: 1em;
 }
 
 .flat {
@@ -37,5 +50,6 @@ button:active {
 .flat:hover,
 .flat:active {
 	background-color: #d2edff;
+	border-radius: 1em;
 }
 </style>

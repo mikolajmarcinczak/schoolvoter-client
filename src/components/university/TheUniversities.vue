@@ -31,7 +31,11 @@ export default {
 		return {
 			universities,  //to be loaded by axios
 			addUniversity: this.addUniversity,
-			removeUniversity: this.removeUniversity
+			removeUniversity: this.removeUniversity,
+			sendRating: this.sendRating,
+			removeAll: this.removeAll,
+			getUniversitiesByScore: this.getUniversitiesByScore,
+			getSingleUniversity: this.getSingleUniversity,
 		}
 	},
 	mounted() {
@@ -49,8 +53,39 @@ export default {
 		switchTab(tab) {
 			this.selectedTab = tab;
 		},
+		getSingleUniversity(name) {
+			axios.get('http://localhost:8081/api/query/' + name)
+					.then(response => {
+						console.log(response.data)
+						this.universities = [];
+						this.universities.push(response.data.singleUni);
+					})
+					.catch(error => {
+						console.log(error);
+					})
+					.finally(() => {
+						this.selectedTab = 'university-list';
+					});
+		},
 		getUniversities() {
 			axios.get('http://localhost:8081/api/query/')
+					.then(response => {
+						this.universities = toRaw(response.data.universities);
+					})
+					.catch(error => {
+						console.log(error);
+					})
+					.finally(() => {
+						this.selectedTab = 'university-list';
+					});
+		},
+		getUniversitiesByScore(min, max) {
+			axios.get('http://localhost:8081/api/query/score', {
+				params: {
+					min: min,
+					max: max
+				}
+			})
 					.then(response => {
 						this.universities = toRaw(response.data.universities);
 					})
@@ -80,6 +115,35 @@ export default {
 		},
 		removeUniversity(name) {
 			axios.delete('http://localhost:8081/api/context/' + name)
+					.then(response => {
+						console.log(response);
+					})
+					.catch(error => {
+						console.log(error);
+					})
+					.finally(() => {
+						this.getUniversities();
+						this.selectedTab = 'university-list';
+					});
+		},
+		removeAll() {
+			axios.delete('http://localhost:8081/api/context/')
+					.then(response => {
+						console.log(response);
+					})
+					.catch(error => {
+						console.log(error);
+					})
+					.finally(() => {
+						this.getUniversities();
+						this.selectedTab = 'university-list';
+					});
+		},
+		sendRating(name, score) {
+			axios.put('http://localhost:8081/api/context/' + name, {
+				name: name,
+				newScore: score
+			})
 					.then(response => {
 						console.log(response);
 					})
