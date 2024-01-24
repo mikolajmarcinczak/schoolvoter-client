@@ -1,8 +1,8 @@
 <template>
-	<div v-if="universities && universities.length">
+	<div v-if="universities && universities.length > 0">
 		<h3>University List</h3>
 		<ul>
-			<university-item v-for="university in universities" :key="university.id" :u-name="university.name" :u-type="university.type" :u-city="university.city" :u-score="university.score">
+			<university-item v-for="university in universities" :key="university.id" :u-name="university.name" :u-type="university.type" :u-city="university.miasto" :u-score="university.score">
 			</university-item>
 		</ul>
 	</div>
@@ -12,14 +12,13 @@
 </template>
 
 <script>
-import {inject, ref, watchEffect} from "vue";
 import UniversityItem from "@/components/university/UniversityItem.vue";
 export default {
 	name: "UniversityList",
 	components: {
 		UniversityItem
 	},
-	inject: ['universities']
+	inject: ['universities'],
 }
 </script>
 

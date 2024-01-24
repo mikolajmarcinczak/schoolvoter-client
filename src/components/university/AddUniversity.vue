@@ -21,7 +21,7 @@
 			</select>
 
 			<label for="city" class="font-bold">City:</label>
-			<input type="text" id="city" v-model="university.city" class="border-2 border-gray-300 p-2 rounded-md">
+			<input type="text" id="city" v-model="university.miasto" class="border-2 border-gray-300 p-2 rounded-md">
 
 			<!--<label for="score" class="font-bold">University Score:</label>
 			<div class="flex">
@@ -46,18 +46,22 @@ export default {
 			university: {
 				name: '',
 				type: '',
-				city: '',
+				miasto: '',
 			},
 			inputIsValid: true,
 		};
 	},
 	methods: {
 		submitData() {
-			const newUniversity = {...this.university};
+			const newUniversity = {
+				name: this.university.name,
+				type: this.university.type,
+				miasto: this.university.miasto,
+			};
 
 			if (newUniversity.name.trim() === ''
 					|| newUniversity.type.trim() === ''
-					|| newUniversity.city.trim() === ''
+					|| newUniversity.miasto.trim() === ''
 			) {
 				this.inputIsValid = false;
 				return;

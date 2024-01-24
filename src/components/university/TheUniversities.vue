@@ -12,6 +12,7 @@
 import UniversityList from "@/components/university/UniversityList.vue";
 import AddUniversity from "@/components/university/AddUniversity.vue";
 import axios from "axios";
+import {ref, toRaw, toRefs} from "vue";
 export default {
 	name: "TheUniversities",
 	components: {
@@ -20,15 +21,21 @@ export default {
 	},
 	data() {
 		return {
-			selectedTab: 'university-list'
+			selectedTab: 'university-list',
+			universities: ref([]),
 		}
 	},
 	provide() {
+		const { universities } = toRefs(this);
+		console.log(universities)
 		return {
-			universities: [0, 1],  //to be loaded by axios
+			universities,  //to be loaded by axios
 			addUniversity: this.addUniversity,
 			removeUniversity: this.removeUniversity
 		}
+	},
+	mounted() {
+		this.getUniversities();
 	},
 	computed: {
 		universityListMode() {
@@ -42,10 +49,10 @@ export default {
 		switchTab(tab) {
 			this.selectedTab = tab;
 		},
-		addUniversity(university) {
-			axios.post('http://localhost:8081/api/context/', university)
+		getUniversities() {
+			axios.get('http://localhost:8081/api/query/')
 					.then(response => {
-						console.log(response);
+						this.universities = toRaw(response.data.universities);
 					})
 					.catch(error => {
 						console.log(error);
@@ -53,6 +60,23 @@ export default {
 					.finally(() => {
 						this.selectedTab = 'university-list';
 					});
+		},
+		addUniversity(university) {
+			axios.post('http://localhost:8081/api/context/', {
+				name: university.name,
+				type: university.type,
+				miasto: university.miasto,
+			})
+				.then(response => {
+					console.log(response);
+				})
+				.catch(error => {
+					console.log(error);
+				})
+				.finally(() => {
+					this.getUniversities();
+					this.selectedTab = 'university-list';
+				});
 		},
 		removeUniversity(name) {
 			axios.delete('http://localhost:8081/api/context/' + name)
@@ -63,6 +87,7 @@ export default {
 						console.log(error);
 					})
 					.finally(() => {
+						this.getUniversities();
 						this.selectedTab = 'university-list';
 					});
 		}
