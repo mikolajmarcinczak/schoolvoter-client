@@ -1,16 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<the-header title="School Voter"/>
+	<the-universities></the-universities>
 </template>
 
 <script>
-import HelloWorld from './components/AddUniversity.vue'
+import TheHeader from "@/components/layout/TheHeader.vue";
+import TheUniversities from "@/components/university/TheUniversities.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+		TheHeader,
+		TheUniversities
+  },
 }
 </script>
 
@@ -23,6 +25,22 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+	box-sizing: border-box;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 1rem;
+}
+
+body {
+	margin: 0;
+}
+
+.text-gold {
+	color: #FFD700;
 }
 </style>

@@ -1,10 +1,17 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import AddUniversity from "@/components/AddUniversity.vue";
 
 import './index.css'
+import AddUniversity from "@/components/university/AddUniversity.vue";
+import BaseCard from "@/components/UI/BaseCard.vue";
+import BaseButton from "@/components/UI/BaseButton.vue";
+import BaseDialog from "@/components/UI/BaseDialog.vue";
 
 const app = createApp(App);
 
-app.mount('#app');
 app.component('add-university', AddUniversity);
+app.component('base-card', BaseCard);
+app.component('base-button', BaseButton);
+app.component('base-dialog', BaseDialog);
+
+app.mount('#app');
